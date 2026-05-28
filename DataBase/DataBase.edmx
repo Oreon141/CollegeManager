@@ -1,0 +1,1373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CollegeManagerModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AcademicSheets">
+          <Key>
+            <PropertyRef Name="SheetID" />
+          </Key>
+          <Property Name="SheetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="SheetName" Type="nvarchar" MaxLength="100" />
+          <Property Name="GeneratedBy" Type="int" />
+          <Property Name="GenerationDate" Type="date" />
+          <Property Name="SheetData" Type="nvarchar(max)" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="AssignmentComments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignmentID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CommentDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Assignments">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="ModuleID" Type="int" />
+          <Property Name="AssignmentName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AssignmentDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="AssignedTo" Type="int" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChatParticipants">
+          <Key>
+            <PropertyRef Name="ChatParticipantID" />
+          </Key>
+          <Property Name="ChatParticipantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="ChatID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseMembers">
+          <Key>
+            <PropertyRef Name="CourseMemberID" />
+          </Key>
+          <Property Name="CourseMemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CourseRoleID" Type="int" Nullable="false" />
+          <Property Name="AssignedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="CourseResources">
+          <Key>
+            <PropertyRef Name="ResourceID" />
+          </Key>
+          <Property Name="ResourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="ResourceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="CourseRoles">
+          <Key>
+            <PropertyRef Name="CourseRoleID" />
+          </Key>
+          <Property Name="CourseRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseRoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="Deadline" Type="date" Nullable="false" />
+          <Property Name="ControlForm" Type="nvarchar" MaxLength="50" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChatID" Type="int" Nullable="false" />
+          <Property Name="SenderID" Type="int" Nullable="false" />
+          <Property Name="MessageText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SentAt" Type="datetime" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+          <Property Name="RelatedEntityID" Type="int" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudyModules">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModuleDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="ModuleNumber" Type="int" Nullable="false" />
+          <Property Name="PlannedStartDate" Type="date" />
+          <Property Name="PlannedEndDate" Type="date" />
+          <Property Name="ActualStartDate" Type="date" />
+          <Property Name="ActualEndDate" Type="date" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AcademicSheets_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="AcademicSheets" Type="Self.AcademicSheets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="AcademicSheets">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcademicSheets_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="AcademicSheets" Type="Self.AcademicSheets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AcademicSheets">
+              <PropertyRef Name="GeneratedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentComments_Assignments">
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssignmentComments" Type="Self.AssignmentComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignments">
+              <PropertyRef Name="AssignmentID" />
+            </Principal>
+            <Dependent Role="AssignmentComments">
+              <PropertyRef Name="AssignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentComments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="AssignmentComments" Type="Self.AssignmentComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AssignmentComments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_StudyModules">
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="0..1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyModules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Users_By">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Users_To">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatParticipants_Chats">
+          <End Role="Chats" Type="Self.Chats" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatParticipants" Type="Self.ChatParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chats">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="ChatParticipants">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatParticipants_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ChatParticipants" Type="Self.ChatParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatParticipants">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_CourseRoles">
+          <End Role="CourseRoles" Type="Self.CourseRoles" Multiplicity="1" />
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseRoles">
+              <PropertyRef Name="CourseRoleID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="CourseRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseResources_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseResources" Type="Self.CourseResources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseResources">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Chats">
+          <End Role="Chats" Type="Self.Chats" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chats">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyModules_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="StudyModules">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyModules_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="StudyModules">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CollegeManagerModelContainer">
+          <EntitySet Name="AcademicSheets" EntityType="Self.AcademicSheets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssignmentComments" EntityType="Self.AssignmentComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Assignments" EntityType="Self.Assignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChatParticipants" EntityType="Self.ChatParticipants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseMembers" EntityType="Self.CourseMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseResources" EntityType="Self.CourseResources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseRoles" EntityType="Self.CourseRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudyModules" EntityType="Self.StudyModules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AcademicSheets_Courses" Association="Self.FK_AcademicSheets_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="AcademicSheets" EntitySet="AcademicSheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcademicSheets_Users" Association="Self.FK_AcademicSheets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AcademicSheets" EntitySet="AcademicSheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentComments_Assignments" Association="Self.FK_AssignmentComments_Assignments">
+            <End Role="Assignments" EntitySet="Assignments" />
+            <End Role="AssignmentComments" EntitySet="AssignmentComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentComments_Users" Association="Self.FK_AssignmentComments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AssignmentComments" EntitySet="AssignmentComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Courses" Association="Self.FK_Assignments_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Statuses" Association="Self.FK_Assignments_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_StudyModules" Association="Self.FK_Assignments_StudyModules">
+            <End Role="StudyModules" EntitySet="StudyModules" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Users_By" Association="Self.FK_Assignments_Users_By">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Users_To" Association="Self.FK_Assignments_Users_To">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatParticipants_Chats" Association="Self.FK_ChatParticipants_Chats">
+            <End Role="Chats" EntitySet="Chats" />
+            <End Role="ChatParticipants" EntitySet="ChatParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatParticipants_Users" Association="Self.FK_ChatParticipants_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChatParticipants" EntitySet="ChatParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_CourseRoles" Association="Self.FK_CourseMembers_CourseRoles">
+            <End Role="CourseRoles" EntitySet="CourseRoles" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_Courses" Association="Self.FK_CourseMembers_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_Users" Association="Self.FK_CourseMembers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseResources_Courses" Association="Self.FK_CourseResources_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseResources" EntitySet="CourseResources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Statuses" Association="Self.FK_Courses_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Chats" Association="Self.FK_Messages_Chats">
+            <End Role="Chats" EntitySet="Chats" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users" Association="Self.FK_Messages_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyModules_Courses" Association="Self.FK_StudyModules_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="StudyModules" EntitySet="StudyModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyModules_Statuses" Association="Self.FK_StudyModules_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="StudyModules" EntitySet="StudyModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserRoles" Association="Self.FK_Users_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CollegeManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AcademicSheets">
+          <Key>
+            <PropertyRef Name="SheetID" />
+          </Key>
+          <Property Name="SheetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="SheetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GeneratedBy" Type="Int32" />
+          <Property Name="GenerationDate" Type="DateTime" Precision="0" />
+          <Property Name="SheetData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_AcademicSheets_Courses" FromRole="AcademicSheets" ToRole="Courses" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_AcademicSheets_Users" FromRole="AcademicSheets" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="AssignmentComments">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssignmentID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CommentText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CommentDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_AssignmentComments_Assignments" FromRole="AssignmentComments" ToRole="Assignments" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_AssignmentComments_Users" FromRole="AssignmentComments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Assignments">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="ModuleID" Type="Int32" />
+          <Property Name="AssignmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AssignmentDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AssignedTo" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AssignmentComments" Relationship="Self.FK_AssignmentComments_Assignments" FromRole="Assignments" ToRole="AssignmentComments" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Assignments_Courses" FromRole="Assignments" ToRole="Courses" />
+          <NavigationProperty Name="Statuses" Relationship="Self.FK_Assignments_Statuses" FromRole="Assignments" ToRole="Statuses" />
+          <NavigationProperty Name="StudyModules" Relationship="Self.FK_Assignments_StudyModules" FromRole="Assignments" ToRole="StudyModules" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Assignments_Users_By" FromRole="Assignments" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Assignments_Users_To" FromRole="Assignments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ChatParticipants">
+          <Key>
+            <PropertyRef Name="ChatParticipantID" />
+          </Key>
+          <Property Name="ChatParticipantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Chats" Relationship="Self.FK_ChatParticipants_Chats" FromRole="ChatParticipants" ToRole="Chats" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_ChatParticipants_Users" FromRole="ChatParticipants" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Chats">
+          <Key>
+            <PropertyRef Name="ChatID" />
+          </Key>
+          <Property Name="ChatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ChatParticipants" Relationship="Self.FK_ChatParticipants_Chats" FromRole="Chats" ToRole="ChatParticipants" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Chats" FromRole="Chats" ToRole="Messages" />
+        </EntityType>
+        <EntityType Name="CourseMembers">
+          <Key>
+            <PropertyRef Name="CourseMemberID" />
+          </Key>
+          <Property Name="CourseMemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CourseRoleID" Type="Int32" Nullable="false" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="CourseRoles" Relationship="Self.FK_CourseMembers_CourseRoles" FromRole="CourseMembers" ToRole="CourseRoles" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_CourseMembers_Courses" FromRole="CourseMembers" ToRole="Courses" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_CourseMembers_Users" FromRole="CourseMembers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CourseResources">
+          <Key>
+            <PropertyRef Name="ResourceID" />
+          </Key>
+          <Property Name="ResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="ResourceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_CourseResources_Courses" FromRole="CourseResources" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="CourseRoles">
+          <Key>
+            <PropertyRef Name="CourseRoleID" />
+          </Key>
+          <Property Name="CourseRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseRoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CourseMembers" Relationship="Self.FK_CourseMembers_CourseRoles" FromRole="CourseRoles" ToRole="CourseMembers" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ControlForm" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AcademicSheets" Relationship="Self.FK_AcademicSheets_Courses" FromRole="Courses" ToRole="AcademicSheets" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Courses" FromRole="Courses" ToRole="Assignments" />
+          <NavigationProperty Name="CourseMembers" Relationship="Self.FK_CourseMembers_Courses" FromRole="Courses" ToRole="CourseMembers" />
+          <NavigationProperty Name="CourseResources" Relationship="Self.FK_CourseResources_Courses" FromRole="Courses" ToRole="CourseResources" />
+          <NavigationProperty Name="Statuses" Relationship="Self.FK_Courses_Statuses" FromRole="Courses" ToRole="Statuses" />
+          <NavigationProperty Name="StudyModules" Relationship="Self.FK_StudyModules_Courses" FromRole="Courses" ToRole="StudyModules" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChatID" Type="Int32" Nullable="false" />
+          <Property Name="SenderID" Type="Int32" Nullable="false" />
+          <Property Name="MessageText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SentAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Chats" Relationship="Self.FK_Messages_Chats" FromRole="Messages" ToRole="Chats" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Messages_Users" FromRole="Messages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="RelatedEntityID" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Notifications_Users" FromRole="Notifications" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Statuses" FromRole="Statuses" ToRole="Assignments" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_Courses_Statuses" FromRole="Statuses" ToRole="Courses" />
+          <NavigationProperty Name="StudyModules" Relationship="Self.FK_StudyModules_Statuses" FromRole="Statuses" ToRole="StudyModules" />
+        </EntityType>
+        <EntityType Name="StudyModules">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="ModuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModuleDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleNumber" Type="Int32" Nullable="false" />
+          <Property Name="PlannedStartDate" Type="DateTime" Precision="0" />
+          <Property Name="PlannedEndDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ActualEndDate" Type="DateTime" Precision="0" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_StudyModules" FromRole="StudyModules" ToRole="Assignments" />
+          <NavigationProperty Name="Courses" Relationship="Self.FK_StudyModules_Courses" FromRole="StudyModules" ToRole="Courses" />
+          <NavigationProperty Name="Statuses" Relationship="Self.FK_StudyModules_Statuses" FromRole="StudyModules" ToRole="Statuses" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserRoles" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AcademicSheets" Relationship="Self.FK_AcademicSheets_Users" FromRole="Users" ToRole="AcademicSheets" />
+          <NavigationProperty Name="AssignmentComments" Relationship="Self.FK_AssignmentComments_Users" FromRole="Users" ToRole="AssignmentComments" />
+          <NavigationProperty Name="Assignments" Relationship="Self.FK_Assignments_Users_By" FromRole="Users" ToRole="Assignments" />
+          <NavigationProperty Name="Assignments1" Relationship="Self.FK_Assignments_Users_To" FromRole="Users" ToRole="Assignments" />
+          <NavigationProperty Name="ChatParticipants" Relationship="Self.FK_ChatParticipants_Users" FromRole="Users" ToRole="ChatParticipants" />
+          <NavigationProperty Name="CourseMembers" Relationship="Self.FK_CourseMembers_Users" FromRole="Users" ToRole="CourseMembers" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK_Messages_Users" FromRole="Users" ToRole="Messages" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_Notifications_Users" FromRole="Users" ToRole="Notifications" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_Users_UserRoles" FromRole="Users" ToRole="UserRoles" />
+        </EntityType>
+        <Association Name="FK_AcademicSheets_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="AcademicSheets" Type="Self.AcademicSheets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="AcademicSheets">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AcademicSheets_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="AcademicSheets" Type="Self.AcademicSheets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AcademicSheets">
+              <PropertyRef Name="GeneratedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentComments_Assignments">
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AssignmentComments" Type="Self.AssignmentComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assignments">
+              <PropertyRef Name="AssignmentID" />
+            </Principal>
+            <Dependent Role="AssignmentComments">
+              <PropertyRef Name="AssignmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssignmentComments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="AssignmentComments" Type="Self.AssignmentComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AssignmentComments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_StudyModules">
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="0..1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudyModules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Users_By">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignments_Users_To">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Assignments" Type="Self.Assignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Assignments">
+              <PropertyRef Name="AssignedTo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatParticipants_Chats">
+          <End Role="Chats" Type="Self.Chats" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ChatParticipants" Type="Self.ChatParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chats">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="ChatParticipants">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChatParticipants_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ChatParticipants" Type="Self.ChatParticipants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ChatParticipants">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Chats">
+          <End Role="Chats" Type="Self.Chats" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chats">
+              <PropertyRef Name="ChatID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ChatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_CourseRoles">
+          <End Role="CourseRoles" Type="Self.CourseRoles" Multiplicity="1" />
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseRoles">
+              <PropertyRef Name="CourseRoleID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="CourseRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseMembers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="CourseMembers" Type="Self.CourseMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="CourseMembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseResources_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CourseResources" Type="Self.CourseResources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseResources">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Courses_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyModules_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="StudyModules">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messages_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notifications_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Notifications">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudyModules_Statuses">
+          <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
+          <End Role="StudyModules" Type="Self.StudyModules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="StudyModules">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserRoles">
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRoles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CollegeManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AcademicSheets" EntityType="Self.AcademicSheets" />
+          <EntitySet Name="AssignmentComments" EntityType="Self.AssignmentComments" />
+          <EntitySet Name="Assignments" EntityType="Self.Assignments" />
+          <EntitySet Name="ChatParticipants" EntityType="Self.ChatParticipants" />
+          <EntitySet Name="Chats" EntityType="Self.Chats" />
+          <EntitySet Name="CourseMembers" EntityType="Self.CourseMembers" />
+          <EntitySet Name="CourseResources" EntityType="Self.CourseResources" />
+          <EntitySet Name="CourseRoles" EntityType="Self.CourseRoles" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" />
+          <EntitySet Name="StudyModules" EntityType="Self.StudyModules" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_AcademicSheets_Courses" Association="Self.FK_AcademicSheets_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="AcademicSheets" EntitySet="AcademicSheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AcademicSheets_Users" Association="Self.FK_AcademicSheets_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AcademicSheets" EntitySet="AcademicSheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentComments_Assignments" Association="Self.FK_AssignmentComments_Assignments">
+            <End Role="Assignments" EntitySet="Assignments" />
+            <End Role="AssignmentComments" EntitySet="AssignmentComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssignmentComments_Users" Association="Self.FK_AssignmentComments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AssignmentComments" EntitySet="AssignmentComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Courses" Association="Self.FK_Assignments_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Statuses" Association="Self.FK_Assignments_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_StudyModules" Association="Self.FK_Assignments_StudyModules">
+            <End Role="StudyModules" EntitySet="StudyModules" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Users_By" Association="Self.FK_Assignments_Users_By">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignments_Users_To" Association="Self.FK_Assignments_Users_To">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Assignments" EntitySet="Assignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatParticipants_Chats" Association="Self.FK_ChatParticipants_Chats">
+            <End Role="Chats" EntitySet="Chats" />
+            <End Role="ChatParticipants" EntitySet="ChatParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChatParticipants_Users" Association="Self.FK_ChatParticipants_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChatParticipants" EntitySet="ChatParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Chats" Association="Self.FK_Messages_Chats">
+            <End Role="Chats" EntitySet="Chats" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_CourseRoles" Association="Self.FK_CourseMembers_CourseRoles">
+            <End Role="CourseRoles" EntitySet="CourseRoles" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_Courses" Association="Self.FK_CourseMembers_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseMembers_Users" Association="Self.FK_CourseMembers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CourseMembers" EntitySet="CourseMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseResources_Courses" Association="Self.FK_CourseResources_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseResources" EntitySet="CourseResources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Courses_Statuses" Association="Self.FK_Courses_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyModules_Courses" Association="Self.FK_StudyModules_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="StudyModules" EntitySet="StudyModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messages_Users" Association="Self.FK_Messages_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notifications_Users" Association="Self.FK_Notifications_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notifications" EntitySet="Notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudyModules_Statuses" Association="Self.FK_StudyModules_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="StudyModules" EntitySet="StudyModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserRoles" Association="Self.FK_Users_UserRoles">
+            <End Role="UserRoles" EntitySet="UserRoles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CollegeManagerModelContainer" CdmEntityContainer="CollegeManagerEntities">
+          <EntitySetMapping Name="AcademicSheets">
+            <EntityTypeMapping TypeName="CollegeManagerModel.AcademicSheets">
+              <MappingFragment StoreEntitySet="AcademicSheets">
+                <ScalarProperty Name="SheetID" ColumnName="SheetID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="SheetName" ColumnName="SheetName" />
+                <ScalarProperty Name="GeneratedBy" ColumnName="GeneratedBy" />
+                <ScalarProperty Name="GenerationDate" ColumnName="GenerationDate" />
+                <ScalarProperty Name="SheetData" ColumnName="SheetData" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssignmentComments">
+            <EntityTypeMapping TypeName="CollegeManagerModel.AssignmentComments">
+              <MappingFragment StoreEntitySet="AssignmentComments">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="CommentDate" ColumnName="CommentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assignments">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Assignments">
+              <MappingFragment StoreEntitySet="Assignments">
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="AssignmentName" ColumnName="AssignmentName" />
+                <ScalarProperty Name="AssignmentDescription" ColumnName="AssignmentDescription" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChatParticipants">
+            <EntityTypeMapping TypeName="CollegeManagerModel.ChatParticipants">
+              <MappingFragment StoreEntitySet="ChatParticipants">
+                <ScalarProperty Name="ChatParticipantID" ColumnName="ChatParticipantID" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chats">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Chats">
+              <MappingFragment StoreEntitySet="Chats">
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseMembers">
+            <EntityTypeMapping TypeName="CollegeManagerModel.CourseMembers">
+              <MappingFragment StoreEntitySet="CourseMembers">
+                <ScalarProperty Name="CourseMemberID" ColumnName="CourseMemberID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CourseRoleID" ColumnName="CourseRoleID" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseResources">
+            <EntityTypeMapping TypeName="CollegeManagerModel.CourseResources">
+              <MappingFragment StoreEntitySet="CourseResources">
+                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ResourceName" ColumnName="ResourceName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseRoles">
+            <EntityTypeMapping TypeName="CollegeManagerModel.CourseRoles">
+              <MappingFragment StoreEntitySet="CourseRoles">
+                <ScalarProperty Name="CourseRoleID" ColumnName="CourseRoleID" />
+                <ScalarProperty Name="CourseRoleName" ColumnName="CourseRoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="ControlForm" ColumnName="ControlForm" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="ChatID" ColumnName="ChatID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="SentAt" ColumnName="SentAt" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="RelatedEntityID" ColumnName="RelatedEntityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Statuses">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudyModules">
+            <EntityTypeMapping TypeName="CollegeManagerModel.StudyModules">
+              <MappingFragment StoreEntitySet="StudyModules">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleDescription" ColumnName="ModuleDescription" />
+                <ScalarProperty Name="ModuleNumber" ColumnName="ModuleNumber" />
+                <ScalarProperty Name="PlannedStartDate" ColumnName="PlannedStartDate" />
+                <ScalarProperty Name="PlannedEndDate" ColumnName="PlannedEndDate" />
+                <ScalarProperty Name="ActualStartDate" ColumnName="ActualStartDate" />
+                <ScalarProperty Name="ActualEndDate" ColumnName="ActualEndDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CollegeManagerModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="CollegeManagerModel.UserRoles">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CollegeManagerModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

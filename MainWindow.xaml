@@ -1,0 +1,145 @@
+﻿<Window x:Class="CollegeManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="CollegeManager — Система управления колледжем"
+        Height="720"
+        Width="1350"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen"
+        MinHeight="720"
+        MinWidth="1350">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Background="{StaticResource WhiteBrush}"
+                Padding="24"
+                BorderBrush="#e2e8f0"
+                BorderThickness="0 0 0 1">
+            <DockPanel LastChildFill="True">
+                <Image Source="/Resources/logo.png"
+                       Width="56"
+                       Height="56"
+                       Margin="0 0 16 0"
+                       DockPanel.Dock="Left"/>
+
+                <TextBlock Text="Система «CollegeManager»"
+                           VerticalAlignment="Center"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="#1e293b"/>
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    <TextBlock x:Name="UserInfoText"
+                               Text="Не авторизован"
+                               FontSize="16"
+                               Foreground="#475569"
+                               Margin="0 0 20 0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Background="{StaticResource WhiteBrush}"
+                    CornerRadius="0 20 20 0"
+                    Padding="20"
+                    BorderBrush="#e2e8f0"
+                    BorderThickness="0 0 1 0">
+
+                <StackPanel VerticalAlignment="Stretch">
+
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📈  Прогресс"
+                            Click="Dashboard_Click"/>
+
+                    <Button x:Name="CoursesNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📁  Курсы"
+                            Click="Courses_Click"/>
+
+                    <Button x:Name="UsersNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="👥  Пользователи"
+                            Click="Users_Click"/>
+
+                    <Grid Margin="0 0 0 10">
+                        
+
+                        <Border x:Name="NotificationBadge"
+                                Width="24"
+                                Height="24"
+                                Background="#ef4444"
+                                CornerRadius="12"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0 6 10 0"
+                                Visibility="Collapsed">
+                            <TextBlock x:Name="NotificationCountText"
+                                       Text="0"
+                                       Foreground="White"
+                                       FontSize="12"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <Button x:Name="ChatNavButton"
+                            Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="💬  Чат"
+                            Click="Chat_Click"/>
+
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📊  Ведомости"
+                            Click="AcademicSheets_Click"/>
+
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="📅  Календарь"
+                            Click="Calendar_Click"/>
+
+                    <Separator Margin="10 20"/>
+
+                    <Button Style="{StaticResource NavButton}"
+                            Height="56"
+                            FontSize="18"
+                            Content="🚪  Выход"
+                            Click="Logout_Click"/>
+
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Margin="24"
+                    Background="Transparent">
+                <Frame x:Name="MainFrame"
+                       NavigationUIVisibility="Hidden"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

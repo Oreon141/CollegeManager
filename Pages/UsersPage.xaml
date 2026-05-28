@@ -1,0 +1,234 @@
+﻿<Page x:Class="CollegeManager.Pages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="{StaticResource BackgroundBrush}"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="20">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель -->
+        <Border Style="{StaticResource Card}"
+                Margin="0 0 15 0">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Верхняя панель -->
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 0 0 15">
+
+                    <ComboBox x:Name="RoleFilter"
+                              Width="220"
+                              Height="42"
+                              FontSize="15"
+                              Padding="8"
+                              Background="#f8fafc"
+                              BorderBrush="#cbd5e1"
+                              DisplayMemberPath="RoleName"
+                              SelectionChanged="RoleFilter_SelectionChanged"/>
+
+                    <Button Content="Сбросить"
+                            Width="140"
+                            Height="42"
+                            Margin="10 0 0 0"
+                            Style="{StaticResource SecondaryButton}"
+                            Click="ResetSelection_Click"/>
+                </StackPanel>
+
+                <!-- Таблица -->
+                <DataGrid x:Name="UsersGrid"
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionChanged="UsersGrid_SelectionChanged"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          GridLinesVisibility="None"
+                          AlternatingRowBackground="#eef2ff"
+                          FontSize="15"
+                          RowHeight="42"
+                          ColumnHeaderHeight="45">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding UserID}"
+                                            Width="70"/>
+
+                        <DataGridTextColumn Header="Фамилия"
+                                            Binding="{Binding Surname}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Имя"
+                                            Binding="{Binding FirstName}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Отчество"
+                                            Binding="{Binding LastName}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Email"
+                                            Binding="{Binding Email}"
+                                            Width="2*"/>
+
+                        <DataGridTextColumn Header="Логин"
+                                            Binding="{Binding Login}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Роль"
+                                            Binding="{Binding UserRoles.RoleName}"
+                                            Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Правая панель -->
+        <Border Grid.Column="1"
+                Style="{StaticResource Card}">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                <StackPanel>
+
+                    <TextBlock Text="Пользователь"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Foreground="#1e293b"
+                               Margin="0 0 0 20"/>
+
+                    <!-- Фамилия -->
+                    <TextBlock Text="Фамилия"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <TextBox x:Name="SurnameBox"
+                             Height="42"
+                             FontSize="15"
+                             Padding="10"
+                             Margin="0 0 0 15"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Имя -->
+                    <TextBlock Text="Имя"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <TextBox x:Name="FirstNameBox"
+                             Height="42"
+                             FontSize="15"
+                             Padding="10"
+                             Margin="0 0 0 15"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Отчество -->
+                    <TextBlock Text="Отчество"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <TextBox x:Name="LastNameBox"
+                             Height="42"
+                             FontSize="15"
+                             Padding="10"
+                             Margin="0 0 0 15"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Email -->
+                    <TextBlock Text="Email"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <TextBox x:Name="EmailBox"
+                             Height="42"
+                             FontSize="15"
+                             Padding="10"
+                             Margin="0 0 0 15"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Логин -->
+                    <TextBlock Text="Логин"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <TextBox x:Name="LoginBox"
+                             Height="42"
+                             FontSize="15"
+                             Padding="10"
+                             Margin="0 0 0 15"
+                             Background="#f8fafc"
+                             BorderBrush="#cbd5e1"/>
+
+                    <!-- Пароль -->
+                    <TextBlock Text="Пароль"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <PasswordBox x:Name="PasswordBox"
+                                 Height="42"
+                                 FontSize="15"
+                                 Padding="10"
+                                 Margin="0 0 0 15"
+                                 Background="#f8fafc"
+                                 BorderBrush="#cbd5e1"/>
+
+                    <!-- Роль -->
+                    <TextBlock Text="Роль"
+                               FontSize="16"
+                               Margin="0 0 0 5"/>
+
+                    <ComboBox x:Name="RoleBox"
+                              Height="42"
+                              FontSize="15"
+                              Padding="8"
+                              Margin="0 0 0 25"
+                              DisplayMemberPath="RoleName"
+                              Background="#f8fafc"
+                              BorderBrush="#cbd5e1"/>
+
+                    <!-- Кнопки -->
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Button x:Name="CreateButton"
+                                Content="Создать"
+                                Width="120"
+                                Height="44"
+                                Margin="5"
+                                Style="{StaticResource PrimaryButton}"
+                                Click="CreateUser_Click"/>
+
+                        <Button x:Name="SaveButton"
+                                Content="Сохранить"
+                                Width="120"
+                                Height="44"
+                                Margin="5"
+                                Style="{StaticResource SuccessButton}"
+                                Click="SaveUser_Click"/>
+
+                        <Button x:Name="DeleteButton"
+                                Content="Удалить"
+                                Width="120"
+                                Height="44"
+                                Margin="5"
+                                Style="{StaticResource ErrorButton}"
+                                Click="DeleteUser_Click"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

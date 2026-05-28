@@ -1,0 +1,144 @@
+﻿<Page x:Class="CollegeManager.Pages.ProgressPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Background="{StaticResource BackgroundBrush}"
+      Loaded="Page_Loaded">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Text="Мониторинг успеваемости"
+                   FontSize="34"
+                   FontWeight="Bold"
+                   Foreground="#1e293b"
+                   Margin="0 0 0 20"/>
+
+        <!-- Фильтр курса -->
+        <Border Grid.Row="1"
+                Style="{StaticResource Card}"
+                Margin="0 0 0 20">
+
+            <StackPanel>
+
+                <TextBlock Text="Курс"
+                           FontSize="18"
+                           Margin="0 0 0 6"/>
+
+                <ComboBox x:Name="CourseFilter"
+                          Height="42"
+                          FontSize="16"
+                          Padding="8"
+                          Background="#f8fafc"
+                          BorderBrush="#cbd5e1"
+                          DisplayMemberPath="CourseName"
+                          SelectionChanged="CourseFilter_Changed"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Карточка -->
+        <Border Grid.Row="2"
+                Style="{StaticResource Card}">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Назад -->
+                <Button Content="◀"
+                        FontSize="30"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#475569"
+                        Cursor="Hand"
+                        VerticalAlignment="Center"
+                        Click="PrevChart_Click"/>
+
+                <!-- Контент -->
+                <Grid Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок диаграммы -->
+                    <TextBlock x:Name="ChartTitle"
+                               FontSize="26"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               Margin="0 0 0 15"/>
+
+                    <!-- Нет данных -->
+                    <TextBlock x:Name="NoDataMessage"
+                               Grid.Row="1"
+                               Text="Нет данных для отображения"
+                               FontSize="28"
+                               Foreground="#94a3b8"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"/>
+
+                    <!-- Круговая -->
+                    <lvc:PieChart x:Name="PieChart"
+                                  Grid.Row="1"
+                                  LegendLocation="Right"
+                                  Visibility="Collapsed"/>
+
+                    <!-- Столбчатая -->
+                    <lvc:CartesianChart x:Name="BarChart"
+                                        Grid.Row="1"
+                                        Visibility="Collapsed">
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Студенты"/>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Количество заданий"/>
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+
+                    <!-- Модули -->
+                    <lvc:CartesianChart x:Name="ModuleChart"
+                                        Grid.Row="1"
+                                        Visibility="Collapsed">
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Модули"/>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Количество заданий"/>
+                        </lvc:CartesianChart.AxisY>
+
+                    </lvc:CartesianChart>
+
+                </Grid>
+
+                <!-- Вперёд -->
+                <Button Grid.Column="2"
+                        Content="▶"
+                        FontSize="30"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#475569"
+                        Cursor="Hand"
+                        VerticalAlignment="Center"
+                        Click="NextChart_Click"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
